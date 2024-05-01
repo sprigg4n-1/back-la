@@ -1,0 +1,4 @@
+{
+  "dotnet.defaultSolution": "back-la.sln",
+  "liveServer.settings.port": 5501
+}
