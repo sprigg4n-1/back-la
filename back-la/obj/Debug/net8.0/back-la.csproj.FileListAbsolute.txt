@@ -43,3 +43,15 @@ D:\.programming\practice\back-la\back-la\bin\Debug\net8.0\runtimes\osx\native\li
 D:\.programming\practice\back-la\back-la\bin\Debug\net8.0\runtimes\win\native\mongocrypt.dll
 D:\.programming\practice\back-la\back-la\obj\Debug\net8.0\back-la.csproj.AssemblyReference.cache
 D:\.programming\practice\back-la\back-la\obj\Debug\net8.0\back-la.csproj.Up2Date
+D:\.programming\practice\back-la\back-la\obj\Debug\net8.0\back-la.sourcelink.json
+D:\.programming\practice\back-la\back-la\bin\Debug\net8.0\Auth0.AspNetCore.Authentication.dll
+D:\.programming\practice\back-la\back-la\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+D:\.programming\practice\back-la\back-la\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\.programming\practice\back-la\back-la\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\.programming\practice\back-la\back-la\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\.programming\practice\back-la\back-la\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\.programming\practice\back-la\back-la\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\.programming\practice\back-la\back-la\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\.programming\practice\back-la\back-la\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\.programming\practice\back-la\back-la\bin\Debug\net8.0\System.Security.Permissions.dll
+D:\.programming\practice\back-la\back-la\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
