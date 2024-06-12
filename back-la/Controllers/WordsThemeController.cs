@@ -86,4 +86,46 @@ public class WordsThemeController : Controller
     return NoContent();
   }
 
+  // user task methods
+  [HttpPost("user/{id}/tasks")]
+  public async Task<IActionResult> AddUserTask(string id, [FromBody] UserTask newTask)
+  {
+    await _mongoDbService.AddUserTask(id, newTask);
+    return Ok();
+  }
+
+  [HttpPut("user/{userId}/tasks/{taskId}")]
+  public async Task<IActionResult> EditUserTask(string userId, int taskId, [FromBody] UserTask updatedTask)
+  {
+    if (taskId != updatedTask.id)
+    {
+      return BadRequest("Task ID does not match the ID in the updated task.");
+    }
+
+    await _mongoDbService.EditUserTask(userId, updatedTask);
+    return Ok();
+  }
+
+  [HttpDelete("user/{userId}/tasks/{taskId}")]
+  public async Task<IActionResult> DeleteUserTask(string userId, int taskId)
+  {
+    await _mongoDbService.DeleteUserTask(userId, taskId);
+    return Ok();
+  }
+
+  // user words methods
+  [HttpPost("user/{id}/words")]
+  public async Task<IActionResult> AddUserWord(string id, [FromBody] MWord newWord)
+  {
+    await _mongoDbService.AddUserWord(id, newWord);
+    return Ok();
+  }
+
+  [HttpDelete("user/{userId}/words/{word}")]
+  public async Task<IActionResult> DeleteUserWord(string userId, string word)
+  {
+    await _mongoDbService.DeleteUserWord(userId, word);
+    return Ok();
+  }
+
 }

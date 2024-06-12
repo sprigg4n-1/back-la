@@ -44,8 +44,6 @@ public class MongoDbService
     return await _usersCollection.Find(x => x.id == id).FirstOrDefaultAsync();
   }
 
-
-
   public async Task AddUser(User user)
   {
     await _usersCollection.InsertOneAsync(user);
@@ -61,41 +59,43 @@ public class MongoDbService
     await _usersCollection.DeleteOneAsync(x => x.id == id);
   }
 
-  public async Task<User> GetUserTasks(string id)
+  // user tasks
+
+  public async Task AddUserTask(string userId, UserTask newTask)
   {
-    User user = await _usersCollection.Find(x => x.id == id).FirstOrDefaultAsync();
-    return user;
+    var update = Builders<User>.Update.Push(x => x.todo_list, newTask);
+    await _usersCollection.UpdateOneAsync(x => x.id == userId, update);
   }
 
-  public async void AddUserTask(string id)
+  public async Task DeleteUserTask(string userId, int taskId)
   {
-
+    var update = Builders<User>.Update.PullFilter(x => x.todo_list, t => t.id == taskId);
+    await _usersCollection.UpdateOneAsync(x => x.id == userId, update);
   }
 
-  public async void DeleteUserTask(string id)
+  public async Task EditUserTask(string userId, UserTask updatedTask)
   {
+    var filter = Builders<User>.Filter.And(
+        Builders<User>.Filter.Eq(x => x.id, userId),
+        Builders<User>.Filter.ElemMatch(x => x.todo_list, t => t.id == updatedTask.id)
+    );
 
+    var update = Builders<User>.Update.Set("todo_list.$", updatedTask);
+    await _usersCollection.UpdateOneAsync(filter, update);
   }
 
-  public async void DeleteEditTask(string id)
-  {
+  // user words
 
+  public async Task AddUserWord(string userId, MWord newWord)
+  {
+    var update = Builders<User>.Update.Push(x => x.words_to_learn, newWord);
+    await _usersCollection.UpdateOneAsync(x => x.id == userId, update);
   }
 
-  public async Task<User> GetUserWords(string id)
+  public async Task DeleteUserWord(string userId, string word)
   {
-    User user = await _usersCollection.Find(x => x.id == id).FirstOrDefaultAsync();
-    return user;
-  }
-
-  public async void AddUserWord(string id)
-  {
-
-  }
-
-  public async void DeleteUserWord(string id)
-  {
-
+    var update = Builders<User>.Update.PullFilter(x => x.words_to_learn, w => w.word == word);
+    await _usersCollection.UpdateOneAsync(x => x.id == userId, update);
   }
 
 }
