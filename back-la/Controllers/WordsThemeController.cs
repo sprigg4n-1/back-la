@@ -27,6 +27,12 @@ public class WordsThemeController : Controller
     return await _mongoDbService.GetWordsThemesById(id);
   }
 
+  [HttpGet("words")]
+  public async Task<List<MWord>> GetAllWords()
+  {
+    return await _mongoDbService.GetAllWordsFromAllThemes();
+  }
+
   // user methods
 
   [HttpGet("user/{id}")]

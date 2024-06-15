@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("back-la")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc2f99dce9208160759b0633506cfc4f2e76922d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bc272c67cf62922da6a111237c3c1ea40b7c7cb8")]
 [assembly: System.Reflection.AssemblyProductAttribute("back-la")]
 [assembly: System.Reflection.AssemblyTitleAttribute("back-la")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

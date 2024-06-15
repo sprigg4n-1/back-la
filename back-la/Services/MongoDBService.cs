@@ -32,6 +32,17 @@ public class MongoDbService
     return theme;
   }
 
+  public async Task<List<MWord>> GetAllWordsFromAllThemes()
+  {
+    List<MWord> words = new List<MWord>();
+    var themes = await _wordsTheme.Find(x => true).ToListAsync();
+    foreach (var theme in themes)
+    {
+      words.AddRange(theme.words);
+    }
+    return words;
+  }
+
   // user collection
   public async Task<User> GetUser(string email, string password)
   {
