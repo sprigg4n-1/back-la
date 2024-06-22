@@ -93,6 +93,17 @@ public class WordsThemeController : Controller
   }
 
   // user task methods
+  [HttpGet("user/{userId}/tasks")]
+  public async Task<ActionResult<IEnumerable<UserTask>>> GetUserTasks(string userId, [FromQuery] string sortColumn = "Checked")
+  {
+    var tasks = await _mongoDbService.GetUserTasks(userId, sortColumn);
+    if (tasks == null)
+    {
+      return NotFound();
+    }
+    return Ok(tasks);
+  }
+
   [HttpPost("user/{id}/tasks")]
   public async Task<IActionResult> AddUserTask(string id, [FromBody] UserTask newTask)
   {
@@ -101,9 +112,9 @@ public class WordsThemeController : Controller
   }
 
   [HttpPut("user/{userId}/tasks/{taskId}")]
-  public async Task<IActionResult> EditUserTask(string userId, int taskId, [FromBody] UserTask updatedTask)
+  public async Task<IActionResult> EditUserTask(string userId, string taskId, [FromBody] UserTask updatedTask)
   {
-    if (taskId != updatedTask.id)
+    if (taskId != updatedTask.taskId)
     {
       return BadRequest("Task ID does not match the ID in the updated task.");
     }
@@ -113,7 +124,7 @@ public class WordsThemeController : Controller
   }
 
   [HttpDelete("user/{userId}/tasks/{taskId}")]
-  public async Task<IActionResult> DeleteUserTask(string userId, int taskId)
+  public async Task<IActionResult> DeleteUserTask(string userId, string taskId)
   {
     await _mongoDbService.DeleteUserTask(userId, taskId);
     return Ok();

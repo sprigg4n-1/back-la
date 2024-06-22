@@ -27,7 +27,7 @@ public class User
 
 public class UserTask
 {
-  public int id { get; set; }
+  public string taskId { get; set; }
   public DateTime date { get; set; }
   public string task { get; set; }
   public bool done { get; set; }

@@ -78,9 +78,9 @@ public class MongoDbService
     await _usersCollection.UpdateOneAsync(x => x.id == userId, update);
   }
 
-  public async Task DeleteUserTask(string userId, int taskId)
+  public async Task DeleteUserTask(string userId, string taskId)
   {
-    var update = Builders<User>.Update.PullFilter(x => x.todo_list, t => t.id == taskId);
+    var update = Builders<User>.Update.PullFilter(x => x.todo_list, t => t.taskId == taskId);
     await _usersCollection.UpdateOneAsync(x => x.id == userId, update);
   }
 
@@ -88,11 +88,46 @@ public class MongoDbService
   {
     var filter = Builders<User>.Filter.And(
         Builders<User>.Filter.Eq(x => x.id, userId),
-        Builders<User>.Filter.ElemMatch(x => x.todo_list, t => t.id == updatedTask.id)
+        Builders<User>.Filter.ElemMatch(x => x.todo_list, t => t.taskId == updatedTask.taskId)
     );
 
     var update = Builders<User>.Update.Set("todo_list.$", updatedTask);
     await _usersCollection.UpdateOneAsync(filter, update);
+  }
+
+  public async Task<List<UserTask>> GetUserTasks(string userId, string sortColumn = "Checked")
+  {
+    var user = await _usersCollection.Find(x => x.id == userId).FirstOrDefaultAsync();
+    if (user == null || user.todo_list == null)
+    {
+      return new List<UserTask>();
+    }
+
+    var tasks = user.todo_list.AsQueryable();
+
+    if (!string.IsNullOrEmpty(sortColumn))
+    {
+      // Сортування тільки за дозволеними колонками
+      switch (sortColumn)
+      {
+        case "Date":
+          tasks = tasks.OrderByDescending(t => t.date);
+          break;
+        case "Task":
+          tasks = tasks.OrderBy(t => t.task);
+          break;
+        case "Important":
+          tasks = tasks.OrderByDescending(t => t.important);
+          break;
+        case "Checked":
+          tasks = tasks.OrderBy(t => t.done);
+          break;
+        default:
+          break;
+      }
+    }
+
+    return tasks.ToList();
   }
 
   // user words
